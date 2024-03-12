@@ -6,12 +6,13 @@ from dateutil.relativedelta import relativedelta
 
 def fill_form(start_date, end_date, fill_type, dev_mode=False):
     # Convert strings to date objects
-    start_date = datetime.datetime.strptime(start_date, '%d/%m/%Y')
-    end_date = datetime.datetime.strptime(end_date, '%d/%m/%Y')
+    start_date_object = datetime.datetime.strptime(start_date, '%d/%m/%Y')
+    end_date_object = datetime.datetime.strptime(end_date, '%d/%m/%Y')
 
     # Loop from start_date to end_date
-    current_date = start_date
-    while current_date <= end_date:
+    current_date = start_date_object
+
+    while current_date <= end_date_object:
         if not dev_mode:
             sleep(1)
 
