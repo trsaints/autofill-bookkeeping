@@ -4,6 +4,47 @@ from time import sleep
 from dateutil.relativedelta import relativedelta
 
 
+def fill_entry_name(fill_type, current_date):
+    pyautogui.press('tab')
+    pyautogui.typewrite(fill_type + ' - ' +
+                        current_date.strftime('%d/%m/%Y'))
+
+
+def fill_entry_type():
+    pyautogui.press('tab', presses=3)
+    pyautogui.press('down')
+
+
+def fill_affiliate():
+    pyautogui.press('tab', presses=4)
+    pyautogui.typewrite('1')
+    pyautogui.press('tab', presses=3)
+    pyautogui.typewrite('1')
+    pyautogui.press('tab', presses=3)
+
+
+def fill_period(current_date):
+    pyautogui.typewrite(current_date.strftime('%d/%m/%Y'))
+    pyautogui.press('tab')
+    pyautogui.typewrite(current_date.strftime('%d/%m/%Y'))
+    pyautogui.press('tab')
+
+
+def fill_receipt_id_range():
+    pyautogui.typewrite('000000000000000')
+    pyautogui.press('tab')
+    pyautogui.typewrite('999999999999999')
+    pyautogui.press('tab')
+
+
+def fill_entry_code(fill_type):
+    if fill_type == 'NFS-e':
+        pyautogui.typewrite('2216')
+
+    pyautogui.press('tab', presses=5)
+    pyautogui.press('enter')
+
+
 def fill_form(start_date, end_date, fill_type, dev_mode=False):
     start_date_object = datetime.datetime.strptime(start_date, '%d/%m/%Y')
     end_date_object = datetime.datetime.strptime(end_date, '%d/%m/%Y')
@@ -19,33 +60,13 @@ def fill_form(start_date, end_date, fill_type, dev_mode=False):
         print(f'Filling form for {current_date.strftime("%d/%m/%Y")}...')
 
         pyautogui.hotkey('ctrl', 'insert')
-        
-        pyautogui.press('tab')
-        pyautogui.typewrite(fill_type + ' - ' +
-                            current_date.strftime('%d/%m/%Y'))
-        pyautogui.press('tab', presses=3)
-        pyautogui.press('down')
 
-        pyautogui.press('tab', presses=4)
-        pyautogui.typewrite('1')
-        pyautogui.press('tab', presses=3)
-        pyautogui.typewrite('1')
-        pyautogui.press('tab', presses=3)
-
-        pyautogui.typewrite(current_date.strftime('%d/%m/%Y'))
-        pyautogui.press('tab')
-        pyautogui.typewrite(current_date.strftime('%d/%m/%Y'))
-        pyautogui.press('tab')
-
-        pyautogui.typewrite('000000000000000')
-        pyautogui.press('tab')
-        pyautogui.typewrite('999999999999999')
-        pyautogui.press('tab')
-
-        if fill_type == 'NFS-e':
-            pyautogui.typewrite('2216')
-        pyautogui.press('tab', presses=5)
-        pyautogui.press('enter')
+        fill_entry_name(fill_type, current_date)
+        fill_entry_type()
+        fill_affiliate()
+        fill_period(current_date)
+        fill_receipt_id_range()
+        fill_entry_code(fill_type)
 
         current_date += relativedelta(days=+1)
 
