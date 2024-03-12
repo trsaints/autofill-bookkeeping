@@ -52,7 +52,23 @@ def fill_entry_code(fill_type):
     pyautogui.press('enter')
 
 
-def fill_form(start_date, end_date, fill_type, dev_mode=False):
+def fill_form(current_date, fill_type, dev_mode=False):
+    pyautogui.hotkey('ctrl', 'insert')
+
+    if not dev_mode:
+        sleep(1)
+
+    print(f'Filling form for {current_date.strftime("%d/%m/%Y")}...')
+
+    fill_entry_name(fill_type, current_date)
+    fill_entry_type()
+    fill_affiliate()
+    fill_period(current_date)
+    fill_receipt_id_range()
+    fill_entry_code(fill_type)
+
+
+def auto_fill(start_date, end_date, fill_type, dev_mode=False):
     [start, end] = get_date_objects(start_date, end_date)
 
     print(f'Starting to fill form from {start_date} to {end_date}...')
@@ -60,19 +76,7 @@ def fill_form(start_date, end_date, fill_type, dev_mode=False):
     current_date = start
 
     while current_date <= end:
-        pyautogui.hotkey('ctrl', 'insert')
-
-        if not dev_mode:
-            sleep(1)
-
-        print(f'Filling form for {current_date.strftime("%d/%m/%Y")}...')
-
-        fill_entry_name(fill_type, current_date)
-        fill_entry_type()
-        fill_affiliate()
-        fill_period(current_date)
-        fill_receipt_id_range()
-        fill_entry_code(fill_type)
+        fill_form(current_date, fill_type, dev_mode)
 
         current_date += relativedelta(days=+1)
 
