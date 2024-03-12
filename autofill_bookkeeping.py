@@ -3,6 +3,20 @@ from autofill import fill_form
 import argparse
 
 
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-s', '--start_date', required=True, type=str)
+    parser.add_argument('-e', '--end_date', required=True, type=str)
+    parser.add_argument('-t', '--fill_type', required=True, type=str)
+
+    args = parser.parse_args()
+    start_date = args.start_date
+    end_date = args.end_date
+    fill_type = args.fill_type
+
+    return [start_date, end_date, fill_type]
+
+
 def switch_window(window_name):
     try:
         print(f'Accessing window {window_name}...')
@@ -14,15 +28,8 @@ def switch_window(window_name):
 
 
 def initialize():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-s', '--start_date', required=True, type=str)
-    parser.add_argument('-e', '--end_date', required=True, type=str)
-    parser.add_argument('-t', '--fill_type', required=True, type=str)
-
-    args = parser.parse_args()
-    start_date = args.start_date
-    end_date = args.end_date
-    fill_type = args.fill_type
+    args = get_args()
+    [start_date, end_date, fill_type] = args
 
     print('starting automation...')
 
