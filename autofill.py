@@ -60,12 +60,12 @@ def fill_form(start_date, end_date, fill_type, dev_mode=False):
     current_date = start
 
     while current_date <= end:
+        pyautogui.hotkey('ctrl', 'insert')
+
         if not dev_mode:
             sleep(1)
 
         print(f'Filling form for {current_date.strftime("%d/%m/%Y")}...')
-
-        pyautogui.hotkey('ctrl', 'insert')
 
         fill_entry_name(fill_type, current_date)
         fill_entry_type()
