@@ -5,11 +5,9 @@ from dateutil.relativedelta import relativedelta
 
 
 def fill_form(start_date, end_date, fill_type, dev_mode=False):
-    # Convert strings to date objects
     start_date_object = datetime.datetime.strptime(start_date, '%d/%m/%Y')
     end_date_object = datetime.datetime.strptime(end_date, '%d/%m/%Y')
 
-    # Loop from start_date to end_date
     current_date = start_date_object
 
     while current_date <= end_date_object:
@@ -42,5 +40,4 @@ def fill_form(start_date, end_date, fill_type, dev_mode=False):
         pyautogui.press('tab', presses=5)
         pyautogui.press('enter')
 
-        # Increase current_date by one day
         current_date += relativedelta(days=+1)
