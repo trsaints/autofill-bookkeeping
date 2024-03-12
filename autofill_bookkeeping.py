@@ -1,5 +1,6 @@
 from pywinauto.application import Application
 from autofill import fill_form
+import argparse
 
 
 def switch_window(window_name):
@@ -13,14 +14,23 @@ def switch_window(window_name):
 
 
 def initialize():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-s', '--start_date', required=True, type=str)
+    parser.add_argument('-e', '--end_date', required=True, type=str)
+    parser.add_argument('-t', '--fill_type', required=True, type=str)
+
+    args = parser.parse_args()
+    start_date = args.start_date
+    end_date = args.end_date
+    fill_type = args.fill_type
+
     print('starting automation...')
 
-    switch_window('Sem título - Bloco de Notas')
-
     try:
-        fill_form('01/03/2025', '01/04/2025', 'NF-e', False)
+        switch_window('Sem título - Bloco de Notas')
+        fill_form(start_date, end_date, fill_type, False)
     except Exception as e:
-        print(f'Error while filling form: {e.with_traceback()}')
+        print(f'Failed to fill form due to error: {e.with_traceback()}')
 
     print('process finished')
 
