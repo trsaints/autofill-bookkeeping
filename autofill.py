@@ -4,6 +4,13 @@ from time import sleep
 from dateutil.relativedelta import relativedelta
 
 
+def get_date_objects(start_date, end_date):
+    start_date_object = datetime.datetime.strptime(start_date, '%d/%m/%Y')
+    end_date_object = datetime.datetime.strptime(end_date, '%d/%m/%Y')
+
+    return [start_date_object, end_date_object]
+
+
 def fill_entry_name(fill_type, current_date):
     pyautogui.press('tab')
     pyautogui.typewrite(fill_type + ' - ' +
@@ -46,14 +53,13 @@ def fill_entry_code(fill_type):
 
 
 def fill_form(start_date, end_date, fill_type, dev_mode=False):
-    start_date_object = datetime.datetime.strptime(start_date, '%d/%m/%Y')
-    end_date_object = datetime.datetime.strptime(end_date, '%d/%m/%Y')
+    [start, end] = get_date_objects(start_date, end_date)
 
     print(f'Starting to fill form from {start_date} to {end_date}...')
 
-    current_date = start_date_object
+    current_date = start
 
-    while current_date <= end_date_object:
+    while current_date <= end:
         if not dev_mode:
             sleep(1)
 
