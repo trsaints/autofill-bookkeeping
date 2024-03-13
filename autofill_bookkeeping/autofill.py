@@ -23,9 +23,13 @@ def fill_entry_type():
 
 def fill_affiliate():
     pyautogui.press('tab', presses=4)
+    
     pyautogui.typewrite('1')
+    sleep(1)
     pyautogui.press('tab', presses=3)
+
     pyautogui.typewrite('1')
+    sleep(1)
     pyautogui.press('tab', presses=3)
 
 
