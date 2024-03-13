@@ -1,10 +1,10 @@
 from pywinauto.application import Application
 
 
-def switch_window(window_name):
+def switch_window(process_id):
     try:
-        print(f'Accessing window {window_name}...')
-        app = Application().connect(title=window_name)
+        print(f'Accessing window via process {process_id}...')
+        app = Application().connect(process=process_id)
         app.window().set_focus()
     except Exception as e:
         print(
