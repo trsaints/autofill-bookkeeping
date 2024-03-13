@@ -49,6 +49,7 @@ def fill_entry_code(fill_type):
         pyautogui.typewrite('2')
         pyautogui.typewrite('1')
         pyautogui.typewrite('6')
+        sleep(1)
 
     pyautogui.press('tab', presses=5)
     pyautogui.press('enter')
