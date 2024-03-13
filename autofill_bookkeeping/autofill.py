@@ -13,8 +13,7 @@ def get_date_objects(start_date, end_date):
 
 def fill_entry_name(fill_type, current_date):
     pyautogui.press('tab')
-    pyautogui.typewrite(fill_type + ' - ' +
-                        current_date.strftime('%d/%m/%Y'))
+    pyautogui.typewrite(f'{fill_type} - {current_date}')
 
 
 def fill_entry_type():
@@ -31,9 +30,9 @@ def fill_affiliate():
 
 
 def fill_period(current_date):
-    pyautogui.typewrite(current_date.strftime('%d/%m/%Y'))
+    pyautogui.typewrite(current_date)
     pyautogui.press('tab')
-    pyautogui.typewrite(current_date.strftime('%d/%m/%Y'))
+    pyautogui.typewrite(current_date)
     pyautogui.press('tab')
 
 
@@ -46,7 +45,10 @@ def fill_receipt_id_range():
 
 def fill_entry_code(fill_type):
     if fill_type == 'NFS-e':
-        pyautogui.typewrite('2216')
+        pyautogui.typewrite('2')
+        pyautogui.typewrite('2')
+        pyautogui.typewrite('1')
+        pyautogui.typewrite('6')
 
     pyautogui.press('tab', presses=5)
     pyautogui.press('enter')
@@ -58,7 +60,7 @@ def fill_form(current_date, fill_type, dev_mode=False):
     if not dev_mode:
         sleep(1)
 
-    print(f'Filling form for {current_date.strftime("%d/%m/%Y")}...')
+    print(f'Filling form for {current_date}...')
 
     fill_entry_name(fill_type, current_date)
     fill_entry_type()
@@ -76,7 +78,9 @@ def auto_fill(start_date, end_date, fill_type, dev_mode=False):
     current_date = start
 
     while current_date <= end:
-        fill_form(current_date, fill_type, dev_mode)
+        formatted_date = current_date.strftime("%d/%m/%Y")
+
+        fill_form(formatted_date, fill_type, dev_mode)
 
         current_date += relativedelta(days=+1)
 
